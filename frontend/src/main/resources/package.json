@@ -1,0 +1,9 @@
+{
+  "name": "misc-page-frontend",
+  "version": "1.0.0",
+  "description": "Miscellaneous Page frontend",
+  "main": "gulpfile.js",
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  }
+}
