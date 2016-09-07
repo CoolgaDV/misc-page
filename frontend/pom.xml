@@ -21,7 +21,7 @@
         <npm.arguments>install --loglevel=error</npm.arguments>
         <gulp.executable>gulp</gulp.executable>
         <gulp.arguments/>
-        <build.directory>${project.basedir}/target/build</build.directory>
+        <build.directory>${project.basedir}/build</build.directory>
     </properties>
 
     <build>
@@ -90,9 +90,10 @@
                 </os>
             </activation>
             <properties>
-                <npm.executable>${project.basedir}/shell.bat</npm.executable>
+                <shell.script>${project.basedir}/shell.bat</shell.script>
+                <npm.executable>${shell.script}</npm.executable>
                 <npm.arguments>npm install --loglevel=error</npm.arguments>
-                <gulp.executable>${project.basedir}/shell.bat</gulp.executable>
+                <gulp.executable>${shell.script}</gulp.executable>
                 <gulp.arguments>gulp</gulp.arguments>
             </properties>
         </profile>
