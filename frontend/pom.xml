@@ -21,37 +21,16 @@
         <npm.arguments>install --loglevel=error</npm.arguments>
         <gulp.executable>gulp</gulp.executable>
         <gulp.arguments/>
-        <build.directory>${project.basedir}/build</build.directory>
+        <frontend.sources.directory>${project.basedir}/src/main/resources</frontend.sources.directory>
     </properties>
 
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>copy-resources</id>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <phase>generate-resources</phase>
-                        <configuration>
-                            <outputDirectory>${build.directory}</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>${project.basedir}/src/main/resources</directory>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <configuration>
-                    <workingDirectory>${build.directory}</workingDirectory>
+                    <workingDirectory>${frontend.sources.directory}</workingDirectory>
                 </configuration>
                 <executions>
                     <execution>

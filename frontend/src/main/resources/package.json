@@ -4,7 +4,6 @@
   "description": "Miscellaneous Page frontend",
   "main": "gulpfile.js",
   "devDependencies": {
-    "del": "^2.2.2",
     "gulp": "^3.9.1",
     "gulp-typescript": "^2.13.6",
     "gulp-typings": "^2.0.4",
