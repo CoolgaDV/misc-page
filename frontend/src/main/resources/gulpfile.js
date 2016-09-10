@@ -4,7 +4,8 @@ const
     gulp = require('gulp'),
     typings = require('gulp-typings'),
     ts = require('gulp-typescript'),
-    eventStream = require('event-stream');
+    eventStream = require('event-stream'),
+    less = require('gulp-less');
 
 const dist = '../../../target/dist';
 
@@ -33,12 +34,19 @@ gulp.task('copy-libs', () => {
 });
 
 gulp.task('copy-src', () =>
-    gulp.src(['src/*', '!src/ts'])
+    gulp.src(['src/*', '!src/ts', '!src/less'])
         .pipe(gulp.dest(dist))
 );
 
-gulp.task('watch', () => {
-    gulp.watch(['src/*.html'], ['copy-src']);
+gulp.task('less', function () {
+    gulp.src('src/less/*.less')
+        .pipe(less())
+        .pipe(gulp.dest(dist + '/css'));
 });
 
-gulp.task('default', ['copy-src', 'ts', 'copy-libs']);
+gulp.task('watch', () => {
+    gulp.watch(['src/*.html'], ['copy-src']);
+    gulp.watch(['src/less/*.less'], ['less']);
+});
+
+gulp.task('default', ['copy-src', 'ts', 'copy-libs', 'less']);

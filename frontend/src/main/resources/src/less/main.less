@@ -1,0 +1,65 @@
+@highlight-color: #5cb85c;
+
+.navbar-header .glyphicon {
+  color: @highlight-color;
+}
+
+.panel.panel-default {
+
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+
+  .panel-body {
+
+    p .glyphicon-ok {
+      color: @highlight-color;
+    }
+
+    div:first-child {
+
+      display: inline-block;
+      padding-left: 50px;
+
+      .glyphicon-ok {
+        font-size: 80px;
+        color: @highlight-color;
+        opacity: 0.3;
+      }
+
+    }
+
+    div:nth-child(2) {
+      display: inline-block;
+      float: right
+    }
+
+  }
+
+  .panel-heading {
+
+    color: white;
+    background-color: @highlight-color;
+
+    div:first-child {
+      display: inline-block;
+    }
+
+    div:first-child span:first-child {
+      font-size: 70px;
+    }
+
+    div:nth-child(2) {
+
+      display: inline-block;
+      float: right;
+      text-align: right;
+
+      p:first-child {
+        font-size: 40px;
+        font-weight: bold
+      }
+
+    }
+
+  }
+
+}
