@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="css/main.css">
+
+    <!-- inject:css -->
+    <link rel="stylesheet/less" type="text/css" href="less/main.less"/>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css"/>
+    <!-- endinject -->
+
 </head>
 
 <body>
@@ -90,9 +94,11 @@
     </div>
 </div>
 
-<script src="lib/jquery/jquery.js"></script>
-<script src="lib/bootstrap/js/bootstrap.js"></script>
-<script src="js/index.js"></script>
+<!-- inject:js -->
+<script src="ts/index.ts"></script>
+<script src="../node_modules/jquery/dist/jquery.js"></script>
+<script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
+<!-- endinject -->
 
 </body>
 
