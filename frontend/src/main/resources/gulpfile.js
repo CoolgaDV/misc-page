@@ -1,6 +1,10 @@
-const gulp = require('gulp');
-const typings = require('gulp-typings');
-const ts = require('gulp-typescript');
+'use strict';
+
+const
+    gulp = require('gulp'),
+    typings = require('gulp-typings'),
+    ts = require('gulp-typescript'),
+    eventStream = require('event-stream');
 
 const dist = '../../../target/dist';
 
@@ -16,14 +20,25 @@ gulp.task('ts', ['typings'], () =>
         .pipe(gulp.dest(dist + '/js'))
 );
 
-gulp.task('copy-js-lib', () =>
-    gulp.src(['node_modules/jquery/dist/jquery.js'])
-        .pipe(gulp.dest(dist + '/js/lib'))
-);
+gulp.task('copy-libs', () => {
+
+    const copy = (src, dest) => gulp.src('node_modules/' + src).pipe(gulp.dest(dist + '/lib/' + dest));
+
+    return eventStream.merge(
+        copy('jquery/dist/jquery.js',               'jquery'),
+        copy('bootstrap/dist/js/bootstrap.js',      'bootstrap/js'),
+        copy('bootstrap/dist/fonts/**',             'bootstrap/fonts'),
+        copy('bootstrap/dist/css/bootstrap.css',    'bootstrap/css')
+    );
+});
 
 gulp.task('copy-src', () =>
     gulp.src(['src/*', '!src/ts'])
         .pipe(gulp.dest(dist))
 );
 
-gulp.task('default', ['copy-src', 'ts', 'copy-js-lib']);
+gulp.task('watch', () => {
+    gulp.watch(['src/*.html'], ['copy-src']);
+});
+
+gulp.task('default', ['copy-src', 'ts', 'copy-libs']);
