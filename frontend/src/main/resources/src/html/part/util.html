@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet/less" type="text/css" href="../../less/main.less"/>
+    <link rel="stylesheet" href="../../../node_modules/bootstrap/dist/css/bootstrap.css"/>
+</head>
+
+<body>
+
+{% macro applicationWidget(icon, title, description, features) %}
+
+<div class="col-sm-3">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div>
+                <span class="glyphicon {{icon}}" aria-hidden="true"></span>
+            </div>
+            <div>
+                <p>{{title}}</p>
+                <p>{{description}}</p>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div>
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+            </div>
+            <div>
+                {% for feature in features %}
+                <p>
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    <span>{{feature}}</span>
+                </p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endmacro %}
+
+</body>
+
+</html>

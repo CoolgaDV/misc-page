@@ -6,7 +6,8 @@ const
     ts = require('gulp-typescript'),
     eventStream = require('event-stream'),
     less = require('gulp-less'),
-    inject = require('gulp-inject');
+    inject = require('gulp-inject'),
+    nunjucksRender = require('gulp-nunjucks-render');
 
 const dist = '../../../target/dist';
 
@@ -34,35 +35,21 @@ gulp.task('copy-libs', () => {
     );
 });
 
-gulp.task('copy-html', () =>
-    gulp.src('src/index.html')
-        .pipe(gulp.dest(dist))
-);
-
 gulp.task('process-less', function () {
     gulp.src('src/less/*.less')
         .pipe(less())
         .pipe(gulp.dest(dist + '/css'));
 });
 
-gulp.task('inject-html', ['copy-html', 'process-less', 'copy-libs', 'compile-ts'], () => {
-
-    var sources = gulp.src([
-        dist + '/lib/bootstrap/css/bootstrap.css',
-        dist + '/css/main.css',
-        dist + '/lib/jquery/jquery.js',
-        dist + '/lib/bootstrap/js/bootstrap.js',
-        dist + '/js/index.js',
-    ], {read: false});
-
-    return gulp.src(dist + '/index.html')
-        .pipe(inject(sources, {relative: true}))
-        .pipe(gulp.dest(dist));
+gulp.task('process-html', () => {
+    return gulp.src('src/html/index.html')
+        .pipe(nunjucksRender({ path: ['src/html/part'] }))
+        .pipe(gulp.dest(dist))
 });
 
-gulp.task('default', ['inject-html']);
+gulp.task('default', ['process-less', 'copy-libs', 'compile-ts', 'process-html']);
 
 gulp.task('watch', () => {
-    gulp.watch(['src/*.html'], ['copy-html']);
+    gulp.watch(['src/html/index.html', 'src/html/part/*.html'], ['process-html']);
     gulp.watch(['src/less/*.less'], ['less']);
 });
