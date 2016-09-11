@@ -6,8 +6,7 @@ const
     ts = require('gulp-typescript'),
     eventStream = require('event-stream'),
     less = require('gulp-less'),
-    inject = require('gulp-inject'),
-    nunjucksRender = require('gulp-nunjucks-render');
+    pug = require('gulp-pug');
 
 const dist = '../../../target/dist';
 
@@ -41,15 +40,15 @@ gulp.task('process-less', function () {
         .pipe(gulp.dest(dist + '/css'));
 });
 
-gulp.task('process-html', () => {
-    return gulp.src('src/html/index.html')
-        .pipe(nunjucksRender({ path: ['src/html/part'] }))
+gulp.task('process-pug', () => {
+    return gulp.src('src/pug/index.pug')
+        .pipe(pug())
         .pipe(gulp.dest(dist))
 });
 
-gulp.task('default', ['process-less', 'copy-libs', 'compile-ts', 'process-html']);
+gulp.task('default', ['process-less', 'copy-libs', 'compile-ts', 'process-pug']);
 
 gulp.task('watch', () => {
-    gulp.watch(['src/html/index.html', 'src/html/part/*.html'], ['process-html']);
+    gulp.watch(['src/pug/index.pug', 'src/pug/include/*.pug'], ['process-pug']);
     gulp.watch(['src/less/*.less'], ['less']);
 });

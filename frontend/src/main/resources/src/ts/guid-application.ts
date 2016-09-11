@@ -1,0 +1,6 @@
+/**
+ *
+ */
+class UuidApplication extends Application {
+
+}

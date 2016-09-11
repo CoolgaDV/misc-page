@@ -1,0 +1,41 @@
+doctype html
+html
+    include include/util
+    head
+        meta(charset='UTF-8')
+        link(rel='stylesheet', href='css/main.css')
+        link(rel='stylesheet', href='lib/bootstrap/css/bootstrap.css')
+    body
+        .navbar.navbar-default
+            .container-fluid
+                .navbar-header
+                    h3
+                        +icon('glyphicon-th-large')
+                        span Miscellaneous page
+        .container-fluid
+            .row
+
+                .col-sm-2
+
+                +application('glyphicon-cog', 'UUID', 'UUID generator', [
+                    'Different formats',
+                    'Multiple value generation'
+                ])
+
+                .col-sm-2
+
+                +application('glyphicon-qrcode', 'Base64', 'Base64 support tool', [
+                    'Base64 decoding',
+                    'Base64 encoding'
+                ])
+
+                .col-sm-2
+
+        script(src='lib/jquery/jquery.js')
+        script(src='lib/bootstrap/js/bootstrap.js')
+
+        script(src='js/application.js')
+        script(src='js/base64-application.js')
+        script(src='js/guid-application.js')
+        script(src='js/index.js')
+

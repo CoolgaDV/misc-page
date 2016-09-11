@@ -1,0 +1,20 @@
+mixin application(icon, title, description, features)
+    .col-sm-3
+        .panel.panel-default
+            .panel-heading
+                div
+                    +icon(icon)
+                div
+                    p= title
+                    p= description
+            .panel-body
+                div
+                    +icon('glyphicon-ok')
+                div
+                    each feature in features
+                        p
+                            +icon('glyphicon-ok')
+                            span= feature
+
+mixin icon(type)
+    span.glyphicon(class= type, aria-hidden='true')

@@ -1,8 +1,13 @@
-
-function hello(compiler: string) {
-    console.log(`Hello from ${compiler}`);
-}
-
+/**
+ *
+ */
 $(() => {
-    hello("Typescript");
+    initApplication($('#123'), new UuidApplication());
+    initApplication($('#123'), new Base64Application());
 });
+
+function initApplication(widget: JQuery, application: Application): void {
+    widget.click(() => {
+        application.start();
+    });
+}
