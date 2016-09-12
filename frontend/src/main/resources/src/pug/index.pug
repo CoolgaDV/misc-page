@@ -17,19 +17,22 @@ html
 
                 .col-sm-2
 
-                +application('glyphicon-cog', 'UUID', 'UUID generator', [
+                +shortcut('uuid-shortcut', 'glyphicon-cog', 'UUID', 'UUID generator', [
                     'Different formats',
                     'Multiple value generation'
                 ])
 
                 .col-sm-2
 
-                +application('glyphicon-qrcode', 'Base64', 'Base64 support tool', [
+                +shortcut('base64-shortcut', 'glyphicon-qrcode', 'Base64', 'Base64 support tool', [
                     'Base64 decoding',
                     'Base64 encoding'
                 ])
 
                 .col-sm-2
+
+            include include/uuid
+            include include/base64
 
         script(src='lib/jquery/jquery.js')
         script(src='lib/bootstrap/js/bootstrap.js')
