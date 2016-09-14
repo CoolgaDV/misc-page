@@ -3,12 +3,15 @@
  */
 abstract class Application {
 
-    start() {
-        alert("Start Application !!!")
+    constructor(protected panel : JQuery, onClose: () => void) {
+        panel.find(".close-application-btn").click(() => {
+            panel.hide();
+            onClose();
+        });
     }
 
-    stop() {
-        alert("Stop Application !!!")
+    open(): void {
+        this.panel.show();
     }
 
 }

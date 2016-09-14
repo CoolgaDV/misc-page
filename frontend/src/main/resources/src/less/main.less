@@ -67,3 +67,38 @@
   }
 
 }
+
+.application {
+  display: none;
+
+  .row:first-child {
+
+    font-size: 40px;
+
+    .col-sm-10 {
+
+      span:first-child {
+        color: @highlight-color;
+      }
+
+    }
+
+    .col-sm-2 {
+
+      text-align: right;
+
+      .close-application-btn {
+
+        color: #dddddd;
+
+        &:hover {
+          color: @highlight-color;
+        }
+
+      }
+
+    }
+
+  }
+
+}

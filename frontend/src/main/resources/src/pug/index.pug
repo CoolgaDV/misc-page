@@ -12,10 +12,11 @@ html
                     h3
                         +icon('glyphicon-th-large')
                         span Miscellaneous page
-        .container-fluid
+
+        #shortcut-panel.container-fluid
             .row
 
-                .col-sm-2
+                .col-sm-1
 
                 +shortcut('uuid-shortcut', 'glyphicon-cog', 'UUID', 'UUID generator', [
                     'Different formats',
@@ -29,10 +30,10 @@ html
                     'Base64 encoding'
                 ])
 
-                .col-sm-2
+                .col-sm-1
 
-            include include/uuid
-            include include/base64
+        include include/uuid
+        include include/base64
 
         script(src='lib/jquery/jquery.js')
         script(src='lib/bootstrap/js/bootstrap.js')

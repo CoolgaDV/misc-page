@@ -1,5 +1,5 @@
 mixin shortcut(id, icon, title, description, features)
-    .col-sm-3(id= id)
+    .col-sm-4(id= id)
         .panel.panel-default
             .panel-heading
                 div
@@ -17,4 +17,4 @@ mixin shortcut(id, icon, title, description, features)
                             span= feature
 
 mixin icon(type)
-    span.glyphicon(class= type, aria-hidden='true')
+    span.glyphicon(class= type, aria-hidden='true')&attributes(attributes)
