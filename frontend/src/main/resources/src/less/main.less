@@ -1,104 +1,92 @@
 @highlight-color: #5cb85c;
+@pale-text-color: #777777;
 
 .navbar-header .glyphicon {
   color: @highlight-color;
 }
 
-.panel.panel-default {
+#shortcut-panel {
 
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  h1 {
+    color: @pale-text-color;
+  }
+
+  hr {
+    margin-bottom: 80px;
+  }
+
+}
+
+.shortcut {
 
   &:hover {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    color: @highlight-color;
   }
 
-  .panel-body {
+  text-align: center;
 
-    p .glyphicon-ok {
-      color: @highlight-color;
-    }
-
-    div:first-child {
-
-      display: inline-block;
-      padding-left: 50px;
-
-      .glyphicon-ok {
-        font-size: 80px;
-        color: @highlight-color;
-        opacity: 0.3;
-      }
-
-    }
-
-    div:nth-child(2) {
-      display: inline-block;
-      float: right
-    }
-
+  div:first-child {
+    font-size: 56px;
   }
 
-  .panel-heading {
-
-    color: white;
-    background-color: @highlight-color;
-
-    div:first-child {
-      display: inline-block;
-    }
-
-    div:first-child span:first-child {
-      font-size: 70px;
-    }
-
-    div:nth-child(2) {
-
-      display: inline-block;
-      float: right;
-      text-align: right;
-
-      p:first-child {
-        font-size: 40px;
-        font-weight: bold
-      }
-
-    }
-
+  div:nth-child(2) {
+    font-size: 16px;
+    cursor: default;
   }
 
 }
 
 .application {
+
   display: none;
 
-  .row:first-child {
+  h1 {
+    color: @pale-text-color;
+  }
 
-    font-size: 40px;
+  hr {
+    margin-bottom: 80px;
+  }
 
-    .col-sm-10 {
+  .col-sm-2 {
 
-      span:first-child {
+    text-align: right;
+
+    .close-application-btn {
+
+      color: #dddddd;
+
+      &:hover {
         color: @highlight-color;
-      }
-
-    }
-
-    .col-sm-2 {
-
-      text-align: right;
-
-      .close-application-btn {
-
-        color: #dddddd;
-
-        &:hover {
-          color: @highlight-color;
-        }
-
       }
 
     }
 
   }
 
+  .col-sm-4 {
+    text-align: right;
+  }
+
+  .col-sm-12 {
+    margin-top: 120px;
+    font-family: monospace;
+    font-size: xx-large;
+    text-align: center;
+    color: @pale-text-color;
+  }
+
+  .btn-default:focus {
+    background-color: #fff;
+  }
+
+  .btn-default:hover {
+    background-color: #fff;
+  }
+
+}
+
+.btn-down {
+  color: #ffffff !important;
+  background-color: @pale-text-color !important;
 }

@@ -13,24 +13,27 @@ html
                         +icon('glyphicon-th-large')
                         span Miscellaneous page
 
-        #shortcut-panel.container-fluid
+        #shortcut-panel.container
+
+            .row
+                h1 Available applications
+            hr
+
             .row
 
                 .col-sm-1
 
-                +shortcut('uuid-shortcut', 'glyphicon-cog', 'UUID', 'UUID generator', [
+                +shortcut('uuid-shortcut', 'glyphicon-cog', 'UUID generator', [
                     'Different formats',
                     'Multiple value generation'
                 ])
 
-                .col-sm-2
+                .col-sm-1
 
-                +shortcut('base64-shortcut', 'glyphicon-qrcode', 'Base64', 'Base64 support tool', [
+                +shortcut('base64-shortcut', 'glyphicon-qrcode', 'Base64 converter', [
                     'Base64 decoding',
                     'Base64 encoding'
                 ])
-
-                .col-sm-1
 
         include include/uuid
         include include/base64

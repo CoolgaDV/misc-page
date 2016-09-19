@@ -1,20 +1,9 @@
-mixin shortcut(id, icon, title, description, features)
-    .col-sm-4(id= id)
-        .panel.panel-default
-            .panel-heading
-                div
-                    +icon(icon)
-                div
-                    p= title
-                    p= description
-            .panel-body
-                div
-                    +icon('glyphicon-ok')
-                div
-                    each feature in features
-                        p
-                            +icon('glyphicon-ok')
-                            span= feature
+mixin shortcut(id, icon, title)
+    .col-sm-3.shortcut(id= id)
+        div
+            +icon(icon)
+        div
+            p= title
 
 mixin icon(type)
     span.glyphicon(class= type, aria-hidden='true')&attributes(attributes)

@@ -5,7 +5,7 @@ $(() => {
 
     let shortcutPanel: JQuery = $("#shortcut-panel");
     let applicationCloseHandler: () => void =
-        () => shortcutPanel.show();
+        () => shortcutPanel.fadeIn(1000);
 
     initApplication(
         $('#uuid-shortcut'),
@@ -20,7 +20,8 @@ $(() => {
 
 function initApplication(shortcut: JQuery, shortcutPanel: JQuery, application: Application): void {
     shortcut.click(() => {
-        shortcutPanel.hide();
-        application.open();
+        shortcutPanel.fadeOut(500, () => {
+            application.open();
+        });
     });
 }

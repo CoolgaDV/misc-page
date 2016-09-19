@@ -1,8 +1,21 @@
-#uuid-application.container.application
+#uuid-application.application.container
     .row
         .col-sm-10
-            +icon('glyphicon-cog')
-            span UUID my UUID
+            h1 UUID generator
         .col-sm-2
-            +icon('glyphicon-remove-circle')(class='close-application-btn')
+            h1
+                +icon('glyphicon-share-alt')(class='close-application-btn')
     hr
+
+    .row
+        .col-sm-8
+            .btn-group
+                button.btn.btn-default.btn-down(type='button') Braces
+                button.btn.btn-default(type='button') Uppercase
+                button.btn.btn-default.btn-down(type='button') Hyphens
+        .col-sm-4
+            button.btn.btn-success(type='button') Generate
+
+    .row
+        .col-sm-12
+            span {37a9fc13-5976-46a7-8fe2-8e109535cf6d}
