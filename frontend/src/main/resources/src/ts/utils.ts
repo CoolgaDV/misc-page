@@ -1,0 +1,2 @@
+const FADE_IN_TIMEOUT = 1000;
+const FADE_OUT_TIMEOUT = 500;
