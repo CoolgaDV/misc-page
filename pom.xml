@@ -12,14 +12,32 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
 
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.3.7.RELEASE</version>
+    </parent>
+
     <modules>
         <module>frontend</module>
+        <module>backend</module>
     </modules>
 
     <properties>
         <jdk.version>1.8</jdk.version>
         <source.encoding>UTF-8</source.encoding>
+        <kotlin.version>1.0.4</kotlin.version>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-stdlib</artifactId>
+                <version>${kotlin.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <pluginManagement>
@@ -103,6 +121,11 @@
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
                     <version>1.12</version>
+                </plugin>
+                <plugin>
+                    <artifactId>kotlin-maven-plugin</artifactId>
+                    <groupId>org.jetbrains.kotlin</groupId>
+                    <version>${kotlin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
