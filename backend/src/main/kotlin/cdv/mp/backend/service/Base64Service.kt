@@ -9,17 +9,17 @@ import java.util.*
  * @author Dmitry Coolga
  * *         12.10.2016 07:12
  */
-class Base64Service {
+open class Base64Service {
 
     companion object {
         private val CHARSET: Charset = Charsets.UTF_8
     }
 
-    fun encode(data: String): String {
+    open fun encode(data: String): String {
         return Base64.getEncoder().encodeToString(data.toByteArray(CHARSET))
     }
 
-    fun decode(data: String): String {
+    open fun decode(data: String): String {
         return String(Base64.getDecoder().decode(data), CHARSET)
     }
 
