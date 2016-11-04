@@ -1,0 +1,30 @@
+<assembly>
+    <id>assembly</id>
+    <includeBaseDirectory>false</includeBaseDirectory>
+    <formats>
+        <format>zip</format>
+    </formats>
+    <fileSets>
+        <fileSet>
+            <directory>${project.basedir}/src/main/resources</directory>
+            <outputDirectory>/</outputDirectory>
+        </fileSet>
+    </fileSets>
+    <dependencySets>
+        <dependencySet>
+            <outputDirectory>backend</outputDirectory>
+            <includes>
+                <include>cdv.mp:misc-page-backend</include>
+            </includes>
+            <useProjectArtifact>false</useProjectArtifact>
+        </dependencySet>
+        <dependencySet>
+            <outputDirectory>frontend</outputDirectory>
+            <includes>
+                <include>cdv.mp:misc-page-frontend:zip</include>
+            </includes>
+            <unpack>true</unpack>
+            <useProjectArtifact>false</useProjectArtifact>
+        </dependencySet>
+    </dependencySets>
+</assembly>
