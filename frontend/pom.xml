@@ -133,6 +133,7 @@
                             <goal>single</goal>
                         </goals>
                         <configuration>
+                            <finalName>frontend</finalName>
                             <descriptors>
                                 <descriptor>assembly.xml</descriptor>
                             </descriptors>

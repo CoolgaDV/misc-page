@@ -7,6 +7,7 @@
 
     <artifactId>misc-page-deployment</artifactId>
     <name>Miscellaneous Page Deployment</name>
+
     <packaging>pom</packaging>
 
     <parent>
@@ -16,47 +17,94 @@
     </parent>
 
     <properties>
-        <backend.port/>
-        <frontend.port/>
-        <root.directory/>
-        <host.name/>
+
+        <deploy.backend.port/>
+        <deploy.remote.directory/>
+        <deploy.host/>
+        <deploy.user/>
+        <deploy.key.path/>
+
+        <deploy.basedir>${project.basedir}</deploy.basedir>
+        <deploy.script>deploy.sh</deploy.script>
+        <deploy.script.arguments/>
+
     </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>cdv.mp</groupId>
-            <artifactId>misc-page-backend</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>cdv.mp</groupId>
-            <artifactId>misc-page-frontend</artifactId>
-            <version>${project.version}</version>
-            <type>zip</type>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>assembly</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                        <configuration>
-                            <descriptors>
-                                <descriptor>assembly.xml</descriptor>
-                            </descriptors>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+    <profiles>
+        <profile>
+            <id>deploy-remote</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.gmaven</groupId>
+                        <artifactId>gmaven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>fix-emulator-root</id>
+                                <phase>generate-resources</phase>
+                                <goals>
+                                    <goal>execute</goal>
+                                </goals>
+                                <configuration>
+                                    <source>
+                                        pom.properties.'deploy.basedir' = pom.properties
+                                                .'deploy.basedir'
+                                                .replace(File.separator, '/');
+                                    </source>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>assembly</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                                <configuration>
+                                    <finalName>deploy</finalName>
+                                    <descriptors>
+                                        <descriptor>assembly.xml</descriptor>
+                                    </descriptors>
+                                    <attach>false</attach>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>remote-deploy</id>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <phase>package</phase>
+                                <configuration>
+                                    <executable>${project.build.directory}/deploy/${deploy.script}</executable>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>run-on-windows</id>
+            <activation>
+                <os>
+                    <family>windows</family>
+                </os>
+            </activation>
+            <properties>
+                <deploy.script>shell.bat</deploy.script>
+            </properties>
+        </profile>
+    </profiles>
 
 </project>
