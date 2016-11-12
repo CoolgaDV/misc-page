@@ -19,6 +19,7 @@
     <properties>
 
         <deploy.backend.port/>
+        <deploy.backend.management.port/>
         <deploy.remote.directory/>
         <deploy.host/>
         <deploy.user/>
