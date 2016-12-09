@@ -20,8 +20,6 @@
 
         <npm.executable>npm</npm.executable>
         <npm.arguments>install --loglevel=error</npm.arguments>
-        <gulp.executable>gulp</gulp.executable>
-        <gulp.arguments/>
         <frontend.sources.directory>${project.basedir}/src/main/resources</frontend.sources.directory>
 
         <emulator.root>${project.build.directory}</emulator.root>
@@ -109,17 +107,6 @@
                             <commandlineArgs>${npm.arguments}</commandlineArgs>
                         </configuration>
                     </execution>
-                    <execution>
-                        <id>run-gulp</id>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <phase>process-resources</phase>
-                        <configuration>
-                            <executable>${gulp.executable}</executable>
-                            <commandlineArgs>${gulp.arguments}</commandlineArgs>
-                        </configuration>
-                    </execution>
                 </executions>
             </plugin>
             <plugin>
@@ -156,8 +143,6 @@
                 <shell.script>${project.basedir}/shell.bat</shell.script>
                 <npm.executable>${shell.script}</npm.executable>
                 <npm.arguments>npm install --loglevel=error</npm.arguments>
-                <gulp.executable>${shell.script}</gulp.executable>
-                <gulp.arguments>gulp</gulp.arguments>
             </properties>
         </profile>
     </profiles>

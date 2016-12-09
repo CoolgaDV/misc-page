@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Miscellaneous Page frontend",
   "main": "gulpfile.js",
+  "scripts": { "prepublish" : "gulp" },
   "devDependencies": {
     "event-stream": "^3.3.4",
     "gulp": "^3.9.1",

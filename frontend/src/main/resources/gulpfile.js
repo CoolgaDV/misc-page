@@ -10,7 +10,7 @@ const
 
 const dist = '../../../target/dist';
 
-var watch = false;
+let watch = false;
 
 const handleError = (flow) => (error) => {
     if (watch) {
