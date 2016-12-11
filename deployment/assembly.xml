@@ -9,6 +9,18 @@
             <directory>${project.basedir}/src/main/resources</directory>
             <outputDirectory>/</outputDirectory>
             <filtered>true</filtered>
+            <excludes>
+                <exclude>**/*.sh</exclude>
+            </excludes>
+        </fileSet>
+        <fileSet>
+            <directory>${project.basedir}/src/main/resources</directory>
+            <outputDirectory>/</outputDirectory>
+            <includes>
+                <include>**/*.sh</include>
+            </includes>
+            <filtered>true</filtered>
+            <fileMode>0755</fileMode>
         </fileSet>
     </fileSets>
 </assembly>

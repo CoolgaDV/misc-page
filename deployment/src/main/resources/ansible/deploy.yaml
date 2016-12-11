@@ -1,0 +1,56 @@
+---
+
+- hosts: server
+
+  tasks:
+
+    - name: stop frontend
+      shell: sudo service nginx stop
+
+    - name: stop backend
+      ignore_errors: yes
+      uri:
+        url: http://localhost:${deploy.backend.management.port}/management/shutdown
+        method: POST
+
+    - name: pause 5 seconds
+      pause:
+        seconds: 5
+
+    - name: copy backend config
+      copy:
+        src: ${deploy.basedir}/target/deploy/config/backend
+        dest: ${deploy.remote.directory}/backend
+
+    - name: copy enginx config
+      copy:
+        src: ${deploy.basedir}/target/deploy/config/nginx.conf
+        dest: /etc/nginx/nginx.conf
+
+    - name: copy backend application
+      copy:
+        src: ${deploy.basedir}/../backend/target/backend.jar
+        dest: ${deploy.remote.directory}/backend/backend.jar
+
+    - name: clear old frontend content
+      file:
+        state: absent
+        path: ${deploy.remote.directory}/frontend/
+
+    - name:
+      file:
+        state: directory
+        path: ${deploy.remote.directory}/frontend/
+
+    - name: unarchive new frontend content
+      unarchive:
+        src: ${deploy.basedir}/../frontend/target/frontend.zip
+        dest: ${deploy.remote.directory}/frontend
+
+    - name: start backend
+      shell: /home/${deploy.user}/jdk1.8.0_111/bin/java -Xms128m -Xmx128m -jar backend.jar &
+      args:
+        chdir: ${deploy.remote.directory}/backend
+
+    - name: start frontend
+      shell: sudo service nginx start
