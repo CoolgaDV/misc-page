@@ -19,7 +19,7 @@
 
     - name: copy backend config
       copy:
-        src: ${deploy.basedir}/target/deploy/config/backend
+        src: ${deploy.basedir}/target/deploy/config/backend/
         dest: ${deploy.remote.directory}/backend
 
     - name: copy enginx config
@@ -37,7 +37,7 @@
         state: absent
         path: ${deploy.remote.directory}/frontend/
 
-    - name:
+    - name: create frontend directory
       file:
         state: directory
         path: ${deploy.remote.directory}/frontend/
@@ -48,7 +48,7 @@
         dest: ${deploy.remote.directory}/frontend
 
     - name: start backend
-      shell: /home/${deploy.user}/jdk1.8.0_111/bin/java -Xms128m -Xmx128m -jar backend.jar &
+      shell: nohup /home/${deploy.user}/jdk1.8.0_111/bin/java -Djava.security.egd=file:/dev/urandom -Xms128m -Xmx128m -jar backend.jar </dev/null >/dev/null 2>&1 &
       args:
         chdir: ${deploy.remote.directory}/backend
 

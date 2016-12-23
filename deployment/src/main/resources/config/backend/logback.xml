@@ -4,10 +4,10 @@
         <file>log.log</file>
         <append>true</append>
         <encoder>
-            <pattern>%-4relative [%thread] %-5level - %msg%n</pattern>
+            <pattern>%d [%thread] %-5level - %msg%n</pattern>
         </encoder>
     </appender>
-    <root level="info">
+    <root level="debug">
         <appender-ref ref="file"/>
     </root>
 </configuration>
