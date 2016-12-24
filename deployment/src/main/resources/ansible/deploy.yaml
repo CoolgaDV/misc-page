@@ -14,8 +14,10 @@
         method: POST
 
     - name: pause 5 seconds
-      pause:
-        seconds: 5
+      pause: seconds=5
+
+    - name: remove previous setup
+      file: path=${deploy.remote.directory} state=absent
 
     - name: copy backend config
       copy:
@@ -32,15 +34,8 @@
         src: ${deploy.basedir}/../backend/target/backend.jar
         dest: ${deploy.remote.directory}/backend/backend.jar
 
-    - name: clear old frontend content
-      file:
-        state: absent
-        path: ${deploy.remote.directory}/frontend/
-
     - name: create frontend directory
-      file:
-        state: directory
-        path: ${deploy.remote.directory}/frontend/
+      file: path=${deploy.remote.directory}/frontend state=directory
 
     - name: unarchive new frontend content
       unarchive:
@@ -48,9 +43,7 @@
         dest: ${deploy.remote.directory}/frontend
 
     - name: start backend
-      shell: nohup /home/${deploy.user}/jdk1.8.0_111/bin/java -Djava.security.egd=file:/dev/urandom -Xms128m -Xmx128m -jar backend.jar </dev/null >/dev/null 2>&1 &
-      args:
-        chdir: ${deploy.remote.directory}/backend
+      script: start-backend.sh
 
     - name: start frontend
       shell: sudo service nginx start
