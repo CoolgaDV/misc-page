@@ -6,7 +6,6 @@ const
     ts = require('gulp-typescript'),
     eventStream = require('event-stream'),
     less = require('gulp-less'),
-    pug = require('gulp-pug'),
     connect = require('gulp-connect');
 
 const dist = '../../../target/dist';
@@ -61,11 +60,8 @@ gulp.task('process-less', (flow) =>
         .pipe(gulp.dest(dist + '/css'))
 );
 
-gulp.task('process-pug', (flow) =>
-    gulp.src('src/pug/index.pug')
-        .pipe(pug())
-        .on('error', handleError(flow))
-        .pipe(gulp.dest(dist))
+gulp.task('copy-html', (flow) =>
+    gulp.src('src/index.html').pipe(gulp.dest(dist))
 );
 
 gulp.task('run-web-server', () =>
@@ -84,12 +80,12 @@ gulp.task('default', [
     'copy-libs',
     'copy-emulator',
     'process-ts',
-    'process-pug'
+    'copy-html'
 ]);
 
 gulp.task('watch', ['run-web-server'], () => {
     watch = true;
-    gulp.watch(['src/pug/**/*.pug'], ['process-pug']);
+    gulp.watch(['src/index.html'], ['copy-html']);
     gulp.watch(['src/less/*.less'], ['process-less']);
     gulp.watch(['src/ts/*.ts'], ['process-ts']);
     gulp.watch(['emulator/*.json'], ['copy-emulator'])

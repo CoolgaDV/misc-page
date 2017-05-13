@@ -1,9 +1,0 @@
-mixin shortcut(id, icon, title)
-    .col-sm-3.shortcut(id= id)
-        div
-            +icon(icon)
-        div
-            p= title
-
-mixin icon(type)
-    span.glyphicon(class= type, aria-hidden='true')&attributes(attributes)
