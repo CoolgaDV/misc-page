@@ -6,7 +6,8 @@ const
     ts = require('gulp-typescript'),
     eventStream = require('event-stream'),
     less = require('gulp-less'),
-    pug = require('gulp-pug');
+    pug = require('gulp-pug'),
+    connect = require('gulp-connect');
 
 const dist = '../../../target/dist';
 
@@ -35,7 +36,7 @@ gulp.task('process-ts', ['load-typings'], () => {
     };
 
     gulp.src(['src/ts/*.ts', 'typings/index.d.ts'])
-        .pipe(ts(ts.createProject('tsconfig.json')))
+        .pipe(ts('tsconfig.json'))
         .on('error', fail)
         .js
         .pipe(gulp.dest(dist + '/js'))
@@ -67,11 +68,29 @@ gulp.task('process-pug', (flow) =>
         .pipe(gulp.dest(dist))
 );
 
-gulp.task('default', ['process-less', 'copy-libs', 'process-ts', 'process-pug']);
+gulp.task('run-web-server', () =>
+    connect.server({
+        root: dist,
+        livereload: true
+    })
+);
 
-gulp.task('watch', () => {
+gulp.task('copy-emulator', () =>
+    gulp.src('emulator/*.json').pipe(gulp.dest(dist + '/rest'))
+);
+
+gulp.task('default', [
+    'process-less',
+    'copy-libs',
+    'copy-emulator',
+    'process-ts',
+    'process-pug'
+]);
+
+gulp.task('watch', ['run-web-server'], () => {
     watch = true;
     gulp.watch(['src/pug/**/*.pug'], ['process-pug']);
     gulp.watch(['src/less/*.less'], ['process-less']);
     gulp.watch(['src/ts/*.ts'], ['process-ts']);
+    gulp.watch(['emulator/*.json'], ['copy-emulator'])
 });

@@ -19,7 +19,7 @@
     <properties>
 
         <npm.executable>npm</npm.executable>
-        <npm.arguments>install --loglevel=error</npm.arguments>
+        <npm.arguments>run build --loglevel=error</npm.arguments>
         <frontend.sources.directory>${project.basedir}/src/main/resources</frontend.sources.directory>
 
         <emulator.root>${project.build.directory}</emulator.root>
@@ -29,66 +29,6 @@
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.codehaus.gmaven</groupId>
-                <artifactId>gmaven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>fix-emulator-root</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>execute</goal>
-                        </goals>
-                        <configuration>
-                            <source>
-                                pom.properties.'emulator.root' = pom.properties
-                                        .'emulator.root'
-                                        .replace(File.separator, '/');
-                            </source>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>select-emulator-port</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>reserve-network-port</goal>
-                        </goals>
-                        <configuration>
-                            <portNames>
-                                <portName>emulator.port</portName>
-                            </portNames>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>copy-emulator</id>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <phase>process-resources</phase>
-                        <configuration>
-                            <resources>
-                                <resource>
-                                    <directory>src/main/resources/emulator</directory>
-                                    <filtering>true</filtering>
-                                </resource>
-                            </resources>
-                            <outputDirectory>${project.build.directory}/emulator</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
@@ -142,7 +82,7 @@
             <properties>
                 <shell.script>${project.basedir}/shell.bat</shell.script>
                 <npm.executable>${shell.script}</npm.executable>
-                <npm.arguments>npm install --loglevel=error</npm.arguments>
+                <npm.arguments>npm run build --loglevel=error</npm.arguments>
             </properties>
         </profile>
     </profiles>
