@@ -5,7 +5,9 @@ const
     typings = require('gulp-typings'),
     ts = require('gulp-typescript'),
     eventStream = require('event-stream'),
+    rimraf = require('rimraf'),
     less = require('gulp-less'),
+    shell = require('gulp-shell'),
     connect = require('gulp-connect');
 
 const dist = '../../../target/dist';
@@ -35,7 +37,7 @@ gulp.task('process-ts', ['load-typings'], () => {
     };
 
     gulp.src(['src/ts/*.ts', 'typings/index.d.ts'])
-        .pipe(ts('tsconfig.json'))
+        .pipe(ts('tsconfig-jit.json'))
         .on('error', fail)
         .js
         .pipe(gulp.dest(dist + '/js'))
@@ -43,7 +45,9 @@ gulp.task('process-ts', ['load-typings'], () => {
 
 gulp.task('copy-libs', () => {
 
-    const copy = (src, dest) => gulp.src('node_modules/' + src).pipe(gulp.dest(dist + '/lib/' + dest));
+    const copy = (src, dest) => gulp
+        .src('node_modules/' + src)
+        .pipe(gulp.dest(dist + '/lib/' + dest));
 
     eventStream.merge(
         copy('jquery/dist/jquery.js',               'jquery'),
@@ -90,3 +94,38 @@ gulp.task('watch', ['run-web-server'], () => {
     gulp.watch(['src/ts/*.ts'], ['process-ts']);
     gulp.watch(['emulator/*.json'], ['copy-emulator'])
 });
+
+// Angular JIT compilation
+
+gulp.task('clean-jit', () => {
+    rimraf('build/jit', () => { });
+});
+
+gulp.task('copy-html-jit', ['clean-jit'], () =>
+    gulp.src('src/html/index-jit.html').pipe(gulp.dest('build/jit'))
+);
+
+gulp.task('compile-jit', ['copy-html-jit'], shell.task(
+    'node_modules/.bin/tsc -p tsconfig-jit.json'
+));
+
+gulp.task('copy-components-jit', ['compile-jit'], () =>
+    gulp.src('src/ts/app/*.html').pipe(gulp.dest('build/jit'))
+);
+
+gulp.task('copy-system-js-jit', ['copy-components-jit'], () =>
+    gulp.src('systemjs.config.js').pipe(gulp.dest('build/jit'))
+);
+
+gulp.task('copy-vendor-jit', ['copy-system-js-jit'], () => {
+    gulp.src([
+        'node_modules/core-js/client/shim.min.js',
+        'node_modules/zone.js/dist/zone.js',
+        'node_modules/systemjs/dist/system.src.js',
+    ]).pipe(gulp.dest('build/jit/vendor'));
+});
+
+gulp.task('build-jit', ['copy-vendor-jit'], () => connect.server({
+    root: ['build/jit', '.'],
+    livereload: true
+}));

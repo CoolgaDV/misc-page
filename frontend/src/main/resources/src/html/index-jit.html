@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<!--suppress HtmlUnknownTarget -->
+<html>
+<head>
+    <title>Angular QuickStart</title>
+    <meta charset="UTF-8">
+
+    <script src="vendor/shim.min.js"></script>
+    <script src="vendor/zone.js"></script>
+    <script src="vendor/system.src.js"></script>
+
+    <script src="systemjs.config.js"></script>
+
+    <script>
+        System.import('js/main-jit.js').catch(function(error) {
+            console.error(error);
+        });
+    </script>
+
+</head>
+
+<body>
+<my-app>Loading AppComponent content here ...</my-app>
+</body>
+</html>

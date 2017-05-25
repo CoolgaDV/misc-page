@@ -3,4 +3,5 @@ target/
 *.iml
 frontend/src/main/resources/node_modules/
 frontend/src/main/resources/npm-debug.log
+frontend/src/main/resources/build/
 frontend/src/main/resources/typings/
