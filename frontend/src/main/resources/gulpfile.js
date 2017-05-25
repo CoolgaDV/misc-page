@@ -127,6 +127,7 @@ gulp.task('copy-vendor-jit', ['copy-system-js-jit'], () => {
 
 gulp.task('build-jit', ['copy-vendor-jit'], () => connect.server({
     root: ['build/jit', '.'],
+    fallback: 'build/jit/index-jit.html',
     livereload: true
 }));
 
@@ -156,6 +157,7 @@ gulp.task('copy-vendor-aot', ['rollup-aot'], () => {
 });
 
 gulp.task('build-aot', ['copy-vendor-aot'], () => connect.server({
-    root: ['build/aot', '.'],
+    root: 'build/aot',
+    fallback: 'build/aot/index-aot.html',
     livereload: true
 }));
