@@ -129,3 +129,33 @@ gulp.task('build-jit', ['copy-vendor-jit'], () => connect.server({
     root: ['build/jit', '.'],
     livereload: true
 }));
+
+// Angular AOT compilation
+
+gulp.task('clean-aot', () => {
+    rimraf('build/aot', () => { });
+});
+
+gulp.task('copy-html-aot', ['clean-aot'], () =>
+    gulp.src('src/html/index-aot.html').pipe(gulp.dest('build/aot'))
+);
+
+gulp.task('compile-aot', ['copy-html-aot'], shell.task(
+    'node_modules/.bin/ngc -p tsconfig-aot.json'
+));
+
+gulp.task('rollup-aot', ['compile-aot'], shell.task(
+    'node_modules/.bin/rollup -c rollup-config.js'
+));
+
+gulp.task('copy-vendor-aot', ['rollup-aot'], () => {
+    gulp.src([
+        'node_modules/core-js/client/shim.min.js',
+        'node_modules/zone.js/dist/zone.js'
+    ]).pipe(gulp.dest('build/aot/vendor'));
+});
+
+gulp.task('build-aot', ['copy-vendor-aot'], () => connect.server({
+    root: ['build/aot', '.'],
+    livereload: true
+}));
