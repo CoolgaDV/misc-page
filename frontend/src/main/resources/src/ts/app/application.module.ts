@@ -5,15 +5,17 @@ import { ApplicationComponent }  from './application.component';
 import {ShortcutPanelComponent} from "./shortcut-panel.component";
 import {UuidApplicationComponent} from "./uuid-application.component";
 import {Base64ApplicationComponent} from "./base64-application.component";
+import {ApplicationService} from "./application.service";
 
 @NgModule({
-    imports:      [ BrowserModule ],
+    imports: [ BrowserModule ],
     declarations: [
         ApplicationComponent,
         ShortcutPanelComponent,
         UuidApplicationComponent,
         Base64ApplicationComponent
     ],
-    bootstrap:    [ ApplicationComponent ]
+    bootstrap: [ ApplicationComponent ],
+    providers: [ ApplicationService ]
 })
 export class ApplicationModule { }

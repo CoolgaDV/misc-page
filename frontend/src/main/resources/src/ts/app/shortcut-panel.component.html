@@ -1,11 +1,11 @@
-<div id="shortcut-panel" class="container">
+<div id="shortcut-panel" *ngIf="isActive()" class="container">
     <div class="row">
         <h1>Available applications</h1>
     </div>
     <hr/>
     <div class="row">
         <div class="col-sm-1"></div>
-        <div id="uuid-shortcut" class="col-sm-3 shortcut">
+        <div id="uuid-shortcut" (click)="openUuidApplication()" class="col-sm-3 shortcut">
             <div>
                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
             </div>
@@ -14,7 +14,9 @@
             </div>
         </div>
         <div class="col-sm-1"></div>
-        <div id="base64-shortcut" class="col-sm-3 shortcut">
+        <div id="base64-shortcut"
+             (click)="openBase64Application()"
+             class="col-sm-3 shortcut">
             <div>
                 <span class="glyphicon glyphicon-qrcode" aria-hidden="true"></span>
             </div>

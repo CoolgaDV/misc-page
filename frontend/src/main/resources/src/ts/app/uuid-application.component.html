@@ -1,11 +1,14 @@
-<div id="uuid-application" class="application container">
+<div id="uuid-application" *ngIf="isActive()" class="application container">
     <div class="row">
         <div class="col-sm-10">
             <h1>UUID generator</h1>
         </div>
         <div class="col-sm-2">
             <h1>
-                <span class="glyphicon glyphicon-share-alt close-application-btn" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-share-alt close-application-btn"
+                      (click)="back()"
+                      aria-hidden="true">
+                </span>
             </h1>
         </div>
     </div>
