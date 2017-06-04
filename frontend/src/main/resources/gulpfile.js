@@ -64,17 +64,6 @@ gulp.task('process-less', (flow) =>
         .pipe(gulp.dest(dist + '/css'))
 );
 
-gulp.task('copy-html', (flow) =>
-    gulp.src('src/index.html').pipe(gulp.dest(dist))
-);
-
-gulp.task('run-web-server', () =>
-    connect.server({
-        root: dist,
-        livereload: true
-    })
-);
-
 gulp.task('copy-emulator', () =>
     gulp.src('emulator/*.json').pipe(gulp.dest(dist + '/rest'))
 );
@@ -117,15 +106,32 @@ gulp.task('copy-system-js-jit', ['copy-components-jit'], () =>
     gulp.src('systemjs.config.js').pipe(gulp.dest('build/jit'))
 );
 
-gulp.task('copy-vendor-jit', ['copy-system-js-jit'], () => {
+gulp.task('process-less-jit', ['copy-system-js-jit'], (flow) =>
+    gulp.src('src/less/*.less')
+        .pipe(less())
+        .on('error', handleError(flow))
+        .pipe(gulp.dest('build/jit/css'))
+);
+
+gulp.task('copy-vendor-js-jit', ['process-less-jit'], () => {
     gulp.src([
         'node_modules/core-js/client/shim.min.js',
+        'node_modules/bootstrap/dist/js/bootstrap.js',
+        'node_modules/jquery/dist/jquery.js',
         'node_modules/zone.js/dist/zone.js',
         'node_modules/systemjs/dist/system.src.js',
     ]).pipe(gulp.dest('build/jit/vendor'));
 });
 
-gulp.task('build-jit', ['copy-vendor-jit'], () => connect.server({
+gulp.task('copy-vendor-fonts-jit', ['copy-vendor-js-jit'], () => {
+    gulp.src('node_modules/bootstrap/dist/fonts/**').pipe(gulp.dest('build/jit/fonts'))
+});
+
+gulp.task('copy-vendor-css-jit', ['copy-vendor-fonts-jit'], () => {
+    gulp.src('node_modules/bootstrap/dist/css/bootstrap.css').pipe(gulp.dest('build/jit/css'))
+});
+
+gulp.task('build-jit', ['copy-vendor-css-jit'], () => connect.server({
     root: ['build/jit', '.'],
     fallback: 'build/jit/index-jit.html',
     livereload: true
