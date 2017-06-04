@@ -22,12 +22,17 @@
             </div>
         </div>
         <div class="col-sm-4">
-            <button id="btn-generate" class="btn btn-success" type="button">Generate</button>
+            <button id="btn-generate"
+                    (click)="generateUuid()"
+                    class="btn btn-success"
+                    type="button">
+                Generate
+            </button>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-12">
-            <span>{{ '{' }}37a9fc13-5976-46a7-8fe2-8e109535cf6d{{ '}' }}</span>
+            <span>{{ getUuid() }}</span>
         </div>
     </div>
 </div>

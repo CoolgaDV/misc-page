@@ -131,7 +131,11 @@ gulp.task('copy-vendor-css-jit', ['copy-vendor-fonts-jit'], () => {
     gulp.src('node_modules/bootstrap/dist/css/bootstrap.css').pipe(gulp.dest('build/jit/css'))
 });
 
-gulp.task('build-jit', ['copy-vendor-css-jit'], () => connect.server({
+gulp.task('copy-emulator-jit', ['copy-vendor-css-jit'], () => {
+    gulp.src('emulator/**').pipe(gulp.dest('build/jit/rest'))
+});
+
+gulp.task('build-jit', ['copy-emulator-jit'], () => connect.server({
     root: ['build/jit', '.'],
     fallback: 'build/jit/index-jit.html',
     livereload: true
